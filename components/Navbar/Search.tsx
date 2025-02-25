@@ -1,8 +1,13 @@
 import React from 'react'
+import { Input } from '../ui/input'
 
 const search = () => {
   return (
-    <div>search</div>
+    <Input 
+      type = "text"
+      placeholder = "Search locations"
+      className='max-w-xs'
+    />
   )
 }
 

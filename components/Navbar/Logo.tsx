@@ -1,10 +1,11 @@
 import React from "react";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 const Logo = () => {
   return (
-    <Button size={"icon"} asChild>
-      <h1 className="text-2xl">logo</h1>
+    <Button size='sm' asChild>
+      <Link href='/' className="text-2xl">logo</Link>
     </Button>
   );
 };

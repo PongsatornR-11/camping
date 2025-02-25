@@ -1,6 +1,8 @@
 import React from "react";
 import Logo from "./Logo";
 import Search from "./Search";
+import { DarkMode } from "./DarkMode";
+import DropdownListMenu from "./DropdownListMenu";
 const Navbar = () => {
   return (
     <nav>
@@ -11,10 +13,11 @@ const Navbar = () => {
         <Search />
         {/* Dark mode & profile */}
         <div className="flex space-x-2">
-          <h1>Darkmode</h1>
-          <h1>profile</h1>
+          <DarkMode />
+          <DropdownListMenu />
         </div>
       </div>
+      <hr />
     </nav>
   );
 };
