@@ -21,25 +21,45 @@ import Link from "next/link";
 // import links from utils
 import { links } from "@/utils/links";
 
+// import signoutlinks
+import SignOutLinks from "./SignOutLinks";
+import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 
 const DropdownListMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">
+        <Button variant="outline" className="flex items-center space-x-2">
           <AlignJustify />
+          <UserIcon />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        {links.map((link, index) => {
-          return (
-            <DropdownMenuItem key={index}>
-              <Link href={link.href}>{link.label}</Link>
-            </DropdownMenuItem>
-          );
-        })}
+        <SignedOut>
+          <DropdownMenuLabel>Not Signed In</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem className="cursor-pointer">
+            <SignInButton mode="modal">Sign In</SignInButton>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer">
+            <SignUpButton mode="modal">Sign Up</SignUpButton>
+          </DropdownMenuItem>
+        </SignedOut>
+        <SignedIn>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          {links.map((link, index) => {
+            return (
+              <DropdownMenuItem key={index} className="cursor-pointer" asChild>
+                <Link href={link.href}>{link.label}</Link>
+              </DropdownMenuItem>
+            );
+          })}
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            <SignOutLinks />
+          </DropdownMenuItem>
+        </SignedIn>
       </DropdownMenuContent>
     </DropdownMenu>
   );
