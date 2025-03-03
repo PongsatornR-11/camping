@@ -26,6 +26,7 @@ import SignOutLinks from "./SignOutLinks";
 import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 
 const DropdownListMenu = () => {
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -46,7 +47,7 @@ const DropdownListMenu = () => {
           </DropdownMenuItem>
         </SignedOut>
         <SignedIn>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {links.map((link, index) => {
             return (
