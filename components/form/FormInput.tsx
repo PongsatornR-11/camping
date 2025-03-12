@@ -4,14 +4,14 @@ import { Label } from "@/components/ui/label";
 
 type FormInputProps = {
     name: string,
-    type?: string,
-    label: string,
+    type: string,
+    label?: string,
     defaultValue?: string,
     placeholder?: string,
 }
 
 const FormInput = (props:FormInputProps) => {
-    console.log(props);
+    // console.log(props);
     const {name, type, label, placeholder, defaultValue} = props;
   return (
     <div className="mb-2">
