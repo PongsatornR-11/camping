@@ -12,11 +12,11 @@ export const profileSchema = z.object({
   }),
 });
 
-export const validateWithZod = (schema: ZodSchema<T>, data: unknown):T => {
+export const validateWithZod = <T>(schema: ZodSchema<T>, data: unknown): T => {
   const result = schema.safeParse(data);
   if (!result.success) {
     const errors = result.error?.errors.map((error) => error.message);
-    throw new Error(errors.join(","));
+    throw new Error(errors.join(", "));
   }
   return result.data;
 };
