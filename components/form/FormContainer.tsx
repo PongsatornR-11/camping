@@ -20,8 +20,7 @@ const FormContainer = ({ action, children }: FormContainerProps) => {
   useEffect(() => {
     if (state.message) {
       toast(state.message);
-    }
-  }, [state]);
+  }}, [state]);
   return <form action={formAction}>{children}</form>;
 };
 

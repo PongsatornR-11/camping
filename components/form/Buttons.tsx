@@ -20,13 +20,16 @@ export const SubmitButton = (props: SubmitButtonProps) => {
       disabled={pending}
       type="submit"
       size={size}
-      className={`${className} capitalize`}
+      className={`${className} capitalize mt-2`}
     >
-      {
-      pending 
-      ? <LoaderCircle className="animate-spin" /> 
-      : <p>{text}</p>
-      }
+      {pending ? (
+        <>
+          <LoaderCircle className="animate-spin" />
+          <span>Please wait...</span>
+        </>
+      ) : (
+        <p>{text}</p>
+      )}
     </Button>
   );
 };
