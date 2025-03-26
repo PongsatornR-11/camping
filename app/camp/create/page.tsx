@@ -7,6 +7,7 @@ import CategoryInput from "@/components/form/CategoryInput";
 import TextAreaInput from "@/components/form/TextAreaInput";
 import ProvinceInput from "@/components/form/Province";
 import MapLandMark from "@/components/map/MapLandMark";
+import ImageInput from "@/components/form/ImageInput";
 
 const createCamp = async () => {
   return (
@@ -34,6 +35,7 @@ const createCamp = async () => {
             <ProvinceInput name="province" />
           </div>
 
+          <ImageInput/>
           <MapLandMark location={{lat:13.4,lng:100}} />
           <SubmitButton text="create camp" size="default" />
         </FormContainer>

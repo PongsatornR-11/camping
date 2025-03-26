@@ -1,5 +1,5 @@
 "use server";
-import { profileSchema, validateWithZod } from "@/utils/schemas";
+import { imageSchema, profileSchema, validateWithZod } from "@/utils/schemas";
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import { prisma } from "@/utils/db";
 import { redirect } from "next/navigation";
@@ -69,11 +69,18 @@ export const createCampAction = async (
   formData: FormData
 ): Promise<{ message: string }> => {
   try {
-    const user = await currentUser();
-    if (!user) throw Error('Please login')
+    const user = await getUserClerk();
+    
+    //Step 1 Validate Data
+    const file = formData.get('image')
+    const validatedImage = validateWithZod(imageSchema, {image:file})
+    console.log('validateImage', validatedImage)
 
-    const rawData = Object.fromEntries(formData);
-    console.log('rawData', rawData)
+
+    
+    //Step 2 Upload Image to database
+    //step 3 Insert to database
+
 
     return { message: 'Create Camp Success!'}
   } catch (error) {

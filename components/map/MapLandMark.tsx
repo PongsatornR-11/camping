@@ -47,8 +47,7 @@ function LocationMarker({ position, setPosition }: locationMarkerProps) {
 
 const MapLandMark = ({location}: {location?: { lat: number; lng: number }}) => {
   const defaultLocation: Latlng = [13.745812730296755, 100.53410768508913];
-  const [position, setPosition] = useState(null);
-  console.log(position);
+  const [position, setPosition] = useState<Latlng | null>(null);
   return (
     <>
       <Label className="mt-2 capitalize">set location</Label>
@@ -59,11 +58,11 @@ const MapLandMark = ({location}: {location?: { lat: number; lng: number }}) => {
         zoom={10}
         scrollWheelZoom={true}
       >
-        <Marker position={location || defaultLocation} icon={markerIcon}>
+        {/* <Marker position={location || defaultLocation} icon={markerIcon}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>
-        </Marker>
+        </Marker> */}
 
         <LocationMarker position={position} setPosition={setPosition} />
 

@@ -19,7 +19,11 @@ const FormContainer = ({ action, children }: FormContainerProps) => {
 
   useEffect(() => {
     if (state.message) {
-      toast(state.message);
+      toast('',{
+        description: state.message,
+        position: 'top-right'
+      }
+      );
   }}, [state]);
   return <form action={formAction}>{children}</form>;
 };
