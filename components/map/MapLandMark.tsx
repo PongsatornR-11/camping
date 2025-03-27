@@ -46,7 +46,7 @@ function LocationMarker({ position, setPosition }: locationMarkerProps) {
 }
 
 const MapLandMark = ({location}: {location?: { lat: number; lng: number }}) => {
-  const defaultLocation: Latlng = [13.745812730296755, 100.53410768508913];
+  const defaultLocation: Latlng = [13.7457, 100.534];
   const [position, setPosition] = useState<Latlng | null>(null);
   return (
     <>

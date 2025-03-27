@@ -1,8 +1,9 @@
 "use server";
-import { imageSchema, profileSchema, validateWithZod } from "@/utils/schemas";
+import { imageSchema, landmarkSchema, profileSchema, validateWithZod } from "@/utils/schemas";
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import { prisma } from "@/utils/db";
 import { redirect } from "next/navigation";
+import { object } from "zod";
 
 const getUserClerk = async () => {
   const user = await currentUser();
@@ -69,12 +70,18 @@ export const createCampAction = async (
   formData: FormData
 ): Promise<{ message: string }> => {
   try {
+    // gather datas
     const user = await getUserClerk();
-    
+    console.log('user', user)
+    const rawData = Object.fromEntries(formData)
+    console.log('rawData', rawData)
+
     //Step 1 Validate Data
     const file = formData.get('image')
     const validatedImage = validateWithZod(imageSchema, {image:file})
+    const validatedField = validateWithZod(landmarkSchema, rawData)
     console.log('validateImage', validatedImage)
+    console.log('validatedField', validatedField)
 
 
     

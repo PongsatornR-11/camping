@@ -27,7 +27,7 @@ const createCamp = async () => {
           <TextAreaInput name="description" row={4} />
           <div className="grid md:grid-cols-2 gap-4 mt-4">
             <FormInput
-              label="Camp name"
+              label="price"
               name="price"
               type="number"
               placeholder="Enter price..."
@@ -36,7 +36,7 @@ const createCamp = async () => {
           </div>
 
           <ImageInput/>
-          <MapLandMark location={{lat:13.4,lng:100}} />
+          <MapLandMark location={{lat:13.745621777493344,lng:100.53411573171617}} />
           <SubmitButton text="create camp" size="default" />
         </FormContainer>
       </div>
