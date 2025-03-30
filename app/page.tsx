@@ -14,6 +14,10 @@ const page = () => {
   return (
     <div>
       <h1>Home Page</h1>
+      
+
+
+
       <div className="flex flex-col border p-4 w-64 mx-auto justify-center items-center">
         <h2 className="text-center p-1 text-xl">Counter</h2>
         <div>

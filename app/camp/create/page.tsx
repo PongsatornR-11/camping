@@ -13,14 +13,14 @@ const createCamp = async () => {
   return (
     <section>
       <div className="border p-4 rounded-md shadow-md">
-        <h1 className="text-2xl font-semibold mb-6 capitalize">Create Camp</h1>
+        <h1 className="text-2xl font-semibold mb-6 capitalize">Create Landmark</h1>
         <FormContainer action={createCampAction}>
           <div className="grid md:grid-cols-2 gap-4 mt-4">
             <FormInput
-              label="Camp name"
+              label="Location name"
               name="name"
               type="text"
-              placeholder="Enter Camp name..."
+              placeholder="Enter Location name..."
             />
             <CategoryInput name="category" />
           </div>

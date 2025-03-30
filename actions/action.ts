@@ -3,7 +3,7 @@ import { imageSchema, landmarkSchema, profileSchema, validateWithZod } from "@/u
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import { prisma } from "@/utils/db";
 import { redirect } from "next/navigation";
-import { object } from "zod";
+import { uploadImage } from "@/utils/supabase";
 
 const getUserClerk = async () => {
   const user = await currentUser();
@@ -58,39 +58,58 @@ export const createProfileAction = async (
     });
 
     // return the response
+    return { 
+      message: 'Create Profile Success!',
+      redirect: '/'
+    }
   } catch (error) {
     return processError(error);
   }
-
-  redirect("/");
+  // redirect("/");
 };
 
 export const createCampAction = async (
   prevState: any,
   formData: FormData
-): Promise<{ message: string }> => {
+): Promise<{ message: string; redirect?: string }> => {
   try {
     // gather datas
     const user = await getUserClerk();
-    console.log('user', user)
     const rawData = Object.fromEntries(formData)
-    console.log('rawData', rawData)
 
     //Step 1 Validate Data
     const file = formData.get('image')
     const validatedImage = validateWithZod(imageSchema, {image:file})
     const validatedField = validateWithZod(landmarkSchema, rawData)
-    console.log('validateImage', validatedImage)
-    console.log('validatedField', validatedField)
-
-
     
     //Step 2 Upload Image to database
+    const Image_publicURL = await uploadImage(validatedImage.image)
+    
     //step 3 Insert to database
+    await prisma.landmark.create({
+      data:{
+        ...validatedField,
+        image:Image_publicURL,
+        profileId:user.id
+      }
+    })
 
-
-    return { message: 'Create Camp Success!'}
+    // Return success message with redirect flag
+    return { 
+      message: 'Create Location Success!',
+      redirect: '/'
+    }
   } catch (error) {
     return processError(error);
   }
 };
+
+export const fetchLandmark = async() =>{
+  const landmarks = await prisma.landmark.findMany({
+    orderBy:{
+      createdAt: 'desc'
+    }
+  })
+
+  return landmarks
+}
