@@ -76,11 +76,11 @@ export const createCampAction = async (
     // gather datas
     const user = await getUserClerk();
     const rawData = Object.fromEntries(formData)
+    const file = formData.get('image')
 
     //Step 1 Validate Data
-    const file = formData.get('image')
-    const validatedImage = validateWithZod(imageSchema, {image:file})
     const validatedField = validateWithZod(landmarkSchema, rawData)
+    const validatedImage = validateWithZod(imageSchema, {image:file})
     
     //Step 2 Upload Image to database
     const Image_publicURL = await uploadImage(validatedImage.image)
@@ -104,12 +104,31 @@ export const createCampAction = async (
   }
 };
 
-export const fetchLandmark = async() =>{
-  const landmarks = await prisma.landmark.findMany({
-    orderBy:{
-      createdAt: 'desc'
-    }
-  })
+export const fetchLocation = async(
+  //search 
+) =>{
+  // const locations = await prisma.landmark.findMany({
+  //   orderBy:{
+  //     createdAt: 'desc'
+  //   }
+  // })
 
-  return landmarks
+  //temporary
+  const locations = [
+    {
+      id: 'bd2a6d54-1bed-48f9-8fe0-7b9af9400529',
+      name: 'ythre',
+      description: 'ertrety',
+      category: 'hotel',
+      image: 'https://hiivzcinvtszjzqzyisf.supabase.co/storage/v1/object/public/location-bucket/1743325232815-FamilyCamping.webp',
+      province: 'Lopburi',
+      lat: 15.00928899385422,
+      lng: 100.8487415313721,
+      price: 3443,
+      createdAt: '2025-03-30T09:00:33.705Z',
+      updatedAt: '2025-03-30T09:00:33.705Z',
+      profileId: 'user_2uaJNiFD42BdfeRLhE12b4mBMvi'
+    }
+  ]
+  return locations
 }
