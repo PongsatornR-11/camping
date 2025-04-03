@@ -53,9 +53,9 @@ const MapLandMark = ({location}: {location?: { lat: number; lng: number }}) => {
       <Label className="mt-2 capitalize">set location</Label>
 
       <MapContainer
-        className="h-[50vh] rounded-md z-0 relative"
+        className="h-[40vh] rounded-md z-0 relative"
         center={location || defaultLocation}
-        zoom={10}
+        zoom={8}
         scrollWheelZoom={true}
       >
         {/* <Marker position={location || defaultLocation} icon={markerIcon}>

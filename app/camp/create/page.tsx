@@ -13,7 +13,9 @@ const createCamp = async () => {
   return (
     <section>
       <div className="border p-4 rounded-md shadow-md">
-        <h1 className="text-2xl font-semibold mb-6 capitalize">Create Landmark</h1>
+        <h1 className="text-2xl font-semibold mb-6 capitalize">
+          Create Landmark
+        </h1>
         <FormContainer action={createCampAction}>
           <div className="grid md:grid-cols-2 gap-4 mt-4">
             <FormInput
@@ -26,17 +28,19 @@ const createCamp = async () => {
           </div>
           <TextAreaInput name="description" row={4} />
           <div className="grid md:grid-cols-2 gap-4 mt-4">
-            <FormInput
-              label="price"
-              name="price"
-              type="number"
-              placeholder="Enter price..."
-            />
+              <FormInput
+                label="price ( THB )"
+                name="price"
+                type="number"
+                placeholder="Enter price..."
+              />
             <ProvinceInput name="province" />
           </div>
 
-          <ImageInput/>
-          <MapLandMark location={{lat:13.745621777493344,lng:100.53411573171617}} />
+          <ImageInput />
+          <MapLandMark
+            location={{ lat: 13.745621777493344, lng: 100.53411573171617 }}
+          />
           <SubmitButton text="create camp" size="default" />
         </FormContainer>
       </div>

@@ -6,6 +6,8 @@ import {
   Utensils,
   Hotel,
   Bed,
+  Church,
+  TreePalm,
 } from "lucide-react";
 import React from "react";
 
@@ -24,6 +26,10 @@ export const categories: categories[] = [
     icon: House,
   },
   {
+    label: "Temple",
+    icon: Church,
+  },
+  {
     label: "hotel",
     icon: Hotel,
   },
@@ -39,8 +45,13 @@ export const categories: categories[] = [
     label: "store",
     icon: Store,
   },
+  
   {
-    label: "food",
+    label: "Beach",
+    icon: TreePalm,
+  },
+  {
+    label: "Restaurant",
     icon: Utensils,
   },
 ];

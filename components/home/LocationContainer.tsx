@@ -7,7 +7,7 @@ import {locationCardProps} from '@/utils/types'
 const LocationContainer = async() => {
     const locations:locationCardProps[] = await fetchLocation()
   return (
-    <div>
+    <div >
         <LocationList locations={locations}/>
     </div>
   )
