@@ -13,4 +13,6 @@ export type locationCardProps = {
   price: number;
   lat: number;
   lng: number;
+  createdAt: Date | string;
+  updatedAt: Date | string;
 };

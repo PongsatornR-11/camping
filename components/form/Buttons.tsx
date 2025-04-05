@@ -1,7 +1,8 @@
 "use client";
 import { useFormStatus } from "react-dom";
 import { Button } from "../ui/button";
-import { LoaderCircle } from "lucide-react";
+import { Heart, LoaderCircle } from "lucide-react";
+import { SignInButton } from "@clerk/nextjs";
 
 type btnSize = "default" | "lg" | "sm" | "icon";
 
@@ -31,5 +32,15 @@ export const SubmitButton = (props: SubmitButtonProps) => {
         <p>{text}</p>
       )}
     </Button>
+  );
+};
+
+export const SignInFavButton = () => {
+  return (
+    <SignInButton mode="modal">
+          <Button size='icon' variant='outline'>
+      <Heart fill="black"/>
+    </Button>
+    </SignInButton>
   );
 };

@@ -5,6 +5,10 @@ import { prisma } from "@/utils/db";
 import { redirect } from "next/navigation";
 import { uploadImage } from "@/utils/supabase";
 
+//for testing 
+import { locations } from "@/utils/forTest";
+
+
 const getUserClerk = async () => {
   const user = await currentUser();
   if (!user) {
@@ -107,11 +111,30 @@ export const createCampAction = async (
 export const fetchLocation = async(
   //search 
 ) =>{
-  const locations = await prisma.landmark.findMany({
-    orderBy:{
-      createdAt: 'desc'
+  // const locations = await prisma.landmark.findMany({
+  //   orderBy:{
+  //     createdAt: 'desc'
+  //   }
+  // })
+
+  
+  return locations
+}
+
+export const fetchFavoriteID = async({locationId}:{locationId:string})=>{
+  const user = await getUserClerk()
+  const favorite = await prisma.favorite.findFirst({
+    where:{
+      landmarkId: locationId,
+      profileId: user.id
+    },
+    select:{
+      id:true
     }
   })
+  return favorite?.id || null
+}
 
-  return locations
+export const toggleFavoriteAction = async() =>{
+  return {message: 'Add to Favorite!'}
 }
