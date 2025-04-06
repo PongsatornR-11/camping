@@ -5,7 +5,6 @@ import LocationRating from "./LocationRating";
 import FavoriteToggleButton from "./FavoriteToggleButton";
 
 const LocationCard = ({ location }: { location: locationCardProps }) => {
-  console.log("location card", location);
   const { name, image, description, price, id, province, lat, lng, category } =
     location;
   return (

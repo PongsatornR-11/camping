@@ -1,10 +1,8 @@
-import React from 'react'
-import { Star } from 'lucide-react'
+import React from "react";
+import { Star } from "lucide-react";
 
 const LocationRating = () => {
-  return (
-    <div><Star className='w-4 h-4'/></div>
-  )
-}
+  return <Star className="w-4 h-4" />;
+};
 
-export default LocationRating
+export default LocationRating;

@@ -1,16 +1,13 @@
-
-import { Button } from "@/components/ui/button";
+import LoadingLocationCard from "@/components/card/LoadingLocationCard";
 import LocationContainer from "@/components/home/LocationContainer";
-
+import { Suspense } from "react";
 const page = () => {
-  
   return (
-    <div>
-      <h1>Home Page</h1>
-      
-      <LocationContainer/>
-
-    </div>
+    <section>
+      <Suspense fallback={<LoadingLocationCard/>}>
+        <LocationContainer />
+      </Suspense>
+    </section>
   );
 };
 
