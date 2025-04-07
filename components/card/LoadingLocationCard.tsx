@@ -4,16 +4,19 @@ import { FavoriteCardButton } from "../form/Buttons";
 
 const LoadingLocationCard = () => {
   return (
-    <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
-      <SkeletonCard />
-      <SkeletonCard />
-      <SkeletonCard />
-      <SkeletonCard />
-      <SkeletonCard />
-      <SkeletonCard />
-      <SkeletonCard />
-      <SkeletonCard />
-      <SkeletonCard />
+    <div>
+      <SkeletonSwiper />
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
+        <SkeletonCard />
+        <SkeletonCard />
+        <SkeletonCard />
+        <SkeletonCard />
+        <SkeletonCard />
+        <SkeletonCard />
+        <SkeletonCard />
+        <SkeletonCard />
+        <SkeletonCard />
+      </div>
     </div>
   );
 };
@@ -30,6 +33,14 @@ const SkeletonCard = () => {
       <Skeleton className="h-4 w-1/2 rounded-md mb-2" />
       <Skeleton className="h-4 w-1/4 rounded-md " />
     </div>
+  );
+};
+
+const SkeletonSwiper = () => {
+  return (
+    <Skeleton className="h-[500px] w-full relative opacity-75">
+      <Skeleton className="h-[120px] w-full absolute bottom-0" />
+    </Skeleton>
   );
 };
 

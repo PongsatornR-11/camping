@@ -1,11 +1,17 @@
-import React from 'react'
-import { fetchFavoriteByUser } from '@/actions/action'
-import LocationList from '@/components/home/LocationList'
+import React from "react";
+import { fetchFavoriteByUser } from "@/actions/action";
+import LocationList from "@/components/home/LocationList";
+import Hero from "@/components/hero/Hero";
 
-const FavoritesPage = async() => {
-  const favorites = await fetchFavoriteByUser()
-  
-  return <LocationList locations={favorites}/> 
-}
+const FavoritesPage = async () => {
+  const favorites = await fetchFavoriteByUser();
 
-export default FavoritesPage
+  return (
+    <div>
+      <Hero locations={favorites} />
+      <LocationList locations={favorites} />
+    </div>
+  );
+};
+
+export default FavoritesPage;
