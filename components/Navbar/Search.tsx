@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
-import { wrapApiHandler } from "next/dist/server/api-utils";
 
 const search = () => {
   const searchParams = useSearchParams();
@@ -20,7 +19,7 @@ const search = () => {
       params.delete("search");
     }
     replace(`/?${params.toString()}`);
-  }, 600);
+  }, 1000);
 
   useEffect(() => {
     if (!searchParams.get("search")) {
@@ -33,7 +32,7 @@ const search = () => {
       type="text"
       placeholder="Search Locations ..."
       className="max-w-xs"
-      onChange={(e) => {
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
         handleSearch(e.target.value);
         setSearch(e.target.value);
       }}

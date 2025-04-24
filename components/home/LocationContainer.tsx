@@ -5,12 +5,19 @@ import LocationList from "./LocationList";
 import { locationCardProps } from "@/utils/types";
 import Hero from "../hero/Hero";
 
-const LocationContainer = async () => {
-  const locations: locationCardProps[] = await fetchLocation();
+const LocationContainer = async ({ search }: { search?: string }) => {
+  const locations: locationCardProps[] = await fetchLocation({ search });
+  console.log(search);
   return (
     <div>
-      <Hero locations={locations}/>
-      <LocationList locations={locations} />
+      {search ? (
+        <LocationList locations={locations} />
+      ) : (
+        <div>
+          <Hero locations={locations} />
+          <LocationList locations={locations} />
+        </div>
+      )}
     </div>
   );
 };

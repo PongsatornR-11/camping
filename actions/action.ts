@@ -113,14 +113,20 @@ export const createCampAction = async (
   }
 };
 
-export const fetchLocation = async () =>
+export const fetchLocation = async ({search=''}:{search?:string}) =>
   //search
   {
-    // const locations = await prisma.landmark.findMany({
-    //   orderBy:{
-    //     createdAt: 'desc'
-    //   }
-    // })
+    const locations = await prisma.landmark.findMany({
+      where:{
+        OR:[
+          { name: {contains:search ,mode:'insensitive'}},
+          { description: {contains:search ,mode:'insensitive'}},
+        ]
+      },
+      orderBy:{
+        createdAt: 'desc'
+      }
+    })
 
     return locations;
   };

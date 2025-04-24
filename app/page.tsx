@@ -1,11 +1,13 @@
 import LoadingLocationCard from "@/components/card/LoadingLocationCard";
 import LocationContainer from "@/components/home/LocationContainer";
 import { Suspense } from "react";
-const page = () => {
+const page = async ({searchParams,}: {searchParams: { search?: string };
+}) => {
+  const {search} = await searchParams;
   return (
     <section>
-      <Suspense fallback={<LoadingLocationCard/>}>
-        <LocationContainer />
+      <Suspense fallback={<LoadingLocationCard />}>
+        <LocationContainer search={search}/>
       </Suspense>
     </section>
   );
