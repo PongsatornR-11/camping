@@ -22,19 +22,15 @@ export const categories: categories[] = [
     icon: Tent,
   },
   {
-    label: "house",
+    label: "House",
     icon: House,
-  },
-  {
-    label: "Temple",
-    icon: Church,
   },
   {
     label: "hotel",
     icon: Hotel,
   },
   {
-    label: "hostel",
+    label: "Hostel",
     icon: Bed,
   },
   {
@@ -42,7 +38,7 @@ export const categories: categories[] = [
     icon: Mountain,
   },
   {
-    label: "store",
+    label: "Store",
     icon: Store,
   },
   
