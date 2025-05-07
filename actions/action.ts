@@ -113,26 +113,37 @@ export const createCampAction = async (
   }
 };
 
-export const fetchLocation = async (
-  {search='', category}:{search?:string, category?:string}
-) =>
-  {
-    console.log("category", category)
-    const locations = await prisma.landmark.findMany({
-      where:{
-        category,
-        OR:[
-          { name: {contains:search ,mode:'insensitive'}},
-          { description: {contains:search ,mode:'insensitive'}},
-        ]
-      },
-      orderBy:{
-        createdAt: 'desc'
-      }
-    })
-    console.log(locations)
-    return locations;
-  };
+export const fetchLocation = async ({
+  search = "",
+  category,
+}: {
+  search?: string;
+  category?: string;
+}) => {
+  const locations = await prisma.landmark.findMany({
+    where: {
+      category,
+      OR: [
+        { name: { contains: search, mode: "insensitive" } },
+        { description: { contains: search, mode: "insensitive" } },
+      ],
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return locations;
+};
+
+export const fetchLocationHero = async () => {
+  const locations = await prisma.landmark.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 5,
+  });
+  return locations;
+};
 
 export const fetchFavoriteID = async ({
   locationId,
@@ -177,36 +188,49 @@ export const toggleFavoriteAction = async (prevState: {
         },
       });
     }
-    revalidatePath(pathname)
-    return { message: favoriteId ? 'Favorite place removed!' : 'Favorite place added!' };
+    revalidatePath(pathname);
+    return {
+      message: favoriteId ? "Favorite place removed!" : "Favorite place added!",
+    };
   } catch (error) {
     return processError(error);
   }
 };
 
-export const fetchFavoriteByUser = async() => {
-  const user = await getUserClerk()
+export const fetchFavoriteByUser = async () => {
+  const user = await getUserClerk();
   const favorites = await prisma.favorite.findMany({
-    where:{
-      profileId: user.id
+    where: {
+      profileId: user.id,
     },
-    select:{
-      landmark:{
-        select:{
-          id:true,
+    select: {
+      landmark: {
+        select: {
+          id: true,
           name: true,
           description: true,
           image: true,
           province: true,
           price: true,
-          lat:true,
-          lng:true,
-          category:true,
+          lat: true,
+          lng: true,
+          category: true,
           createdAt: true,
-          updatedAt: true
-        }
-      }
+          updatedAt: true,
+        },
+      },
+    },
+  });
+  return favorites.map((favorite) => favorite.landmark);
+};
+
+
+export const fetchLocationDetailById = async ({ id }: { id: string }) => {
+  return await prisma.landmark.findUnique({
+    where: {
+      id: id
+    },include:{
+      profile: true
     }
   })
-  return favorites.map((favorite)=>favorite.landmark)
-}
+};
