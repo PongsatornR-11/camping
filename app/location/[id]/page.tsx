@@ -3,6 +3,8 @@ import FavoriteToggleButton from "@/components/card/FavoriteToggleButton";
 import Breadcrumbs from "@/components/location/Breadcrumbs";
 import Description from "@/components/location/Description";
 import ImageContainer from "@/components/location/ImageContainer";
+import ShareButton from "@/components/location/ShareButton";
+import MapLandMark from "@/components/map/MapLandMark";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -19,7 +21,7 @@ const LocationDetail = async ({ params }: { params: { id: string } }) => {
         </h1>
         <div className="flex items-center gap-x-4">
           <FavoriteToggleButton locationId={location.id} />
-          <span>Share</span>
+          <ShareButton locationId={location.id} name={location.name}/>
         </div>
       </header>
       {/* image */}
@@ -27,7 +29,8 @@ const LocationDetail = async ({ params }: { params: { id: string } }) => {
       {/* detail */}
       <section>
         <div>
-          <Description description={location.description}/>
+          <Description description={location.description} />
+          <MapLandMark location={{ lat: location.lat, lng: location.lng }} />
         </div>
       </section>
     </section>
