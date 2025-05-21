@@ -14,7 +14,7 @@ const createCamp = async () => {
     <section>
       <div className="border p-4 rounded-md shadow-md">
         <h1 className="text-2xl font-semibold mb-6 capitalize">
-          Create Landmark
+          Create Landmark Location
         </h1>
         <FormContainer action={createCampAction}>
           <div className="grid md:grid-cols-2 gap-4 mt-4">
