@@ -224,13 +224,26 @@ export const fetchFavoriteByUser = async () => {
   return favorites.map((favorite) => favorite.landmark);
 };
 
-
 export const fetchLocationDetailById = async ({ id }: { id: string }) => {
   return await prisma.landmark.findUnique({
     where: {
-      id: id
-    },include:{
-      profile: true
-    }
-  })
+      id: id,
+    },
+    include: {
+      profile: true,
+    },
+  });
+};
+
+export const fetchUserData = async () => {
+  const user = await getUserClerk();
+  const profile = await prisma.profile.findUnique({
+    where: {
+      clerkId: user.id,
+    },
+  });
+  if (!profile) {
+    throw new Error("Profile not found");
+  }
+  return { user, profile };
 };
