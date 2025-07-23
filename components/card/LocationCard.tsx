@@ -6,7 +6,7 @@ import FavoriteToggleButton from "./FavoriteToggleButton";
 import Link from "next/link";
 
 const LocationCard = ({ location }: { location: locationCardProps }) => {
-  const { name, image, description, price, id, province, lat, lng, category } =
+  const { name, image, description, price, id, province } =
     location;
   return (
     <article className="group relative p-2 rounded-sm hover:scale-105 transition-transform duration-600 shadow-sm">

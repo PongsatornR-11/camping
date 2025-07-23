@@ -7,13 +7,13 @@ import {
   Marker,
   Popup,
   TileLayer,
-  useMap,
   useMapEvents,
 } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.gridlayer.googlemutant";
 import { Label } from "../ui/label";
+import CopyLocation from "./CopyLocation";
 
 //load pin icon
 const iconUrl =
@@ -40,29 +40,31 @@ function LocationMarker({ position, setPosition }: locationMarkerProps) {
 
   return position === null ? null : (
     <Marker position={position} icon={markerIcon}>
-      <Popup>Selected here</Popup>
+      <Popup>
+        {`latitude: ${position[0].toFixed(2)}`} <br />
+        {`longitude: ${position[1].toFixed(2)}`}
+      </Popup>
     </Marker>
   );
 }
 
-const MapLandMark = ({location}: {location?: { lat: number; lng: number }}) => {
+const MapLandMark = ({
+  location,
+}: {
+  location?: { lat: number; lng: number };
+}) => {
   const defaultLocation: Latlng = [13.7457, 100.534];
-  const [position, setPosition] = useState<Latlng | null>(null);
+  const [position, setPosition] = useState<Latlng | null>(
+    location ? [location.lat, location.lng] : null
+  );
   return (
     <div className="mt-4">
-
       <MapContainer
         className="h-[40vh] rounded-md z-0 relative"
         center={location || defaultLocation}
         zoom={8}
         scrollWheelZoom={true}
       >
-        <Marker position={location || defaultLocation} icon={markerIcon}>
-          <Popup>
-            {`latitude: ${(location.lat).toFixed(2)}`} <br /> {`longitude: ${(location.lng).toFixed(2)}`}
-          </Popup>
-        </Marker>
-
         <LocationMarker position={position} setPosition={setPosition} />
 
         <LayersControl>
@@ -81,7 +83,7 @@ const MapLandMark = ({location}: {location?: { lat: number; lng: number }}) => {
           </LayersControl.BaseLayer>
           <LayersControl.BaseLayer name="Esri WorldImagery">
             <TileLayer
-              attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+              attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
               url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
             />
           </LayersControl.BaseLayer>
@@ -89,10 +91,13 @@ const MapLandMark = ({location}: {location?: { lat: number; lng: number }}) => {
       </MapContainer>
 
       <div>
-        <Label className="capitalize">latitude: </Label>
-        <input name="lat" value={position ? position[0] : ""} />
-        <Label className="capitalize">longitude: </Label>
-        <input name="lng" value={position ? position[1] : ""} />
+        <div>
+          <Label className="capitalize">latitude: </Label>
+          <input name="lat" value={position ? position[0].toFixed(3) : ""} readOnly />
+          <Label className="capitalize">longitude: </Label>
+          <input name="lng" value={position ? position[1].toFixed(3) : ""} readOnly />
+        </div>
+        {position && <CopyLocation lat={position[0]} lng={position[1]} />}
       </div>
     </div>
   );

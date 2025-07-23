@@ -1,5 +1,6 @@
 import React from "react";
 import { fetchUserData } from "@/actions/action";
+import Image from "next/image";
 
 const profilePage = async () => {
   const userData = await fetchUserData();
@@ -8,9 +9,11 @@ const profilePage = async () => {
     <div className="flex justify-center items-center min-h-[70vh] py-10">
       <div className="rounded-xl shadow-lg p-8 w-full max-w-md">
         <div className="flex flex-col items-center mb-6">
-          <img
+          <Image
             src={userData.profile.profileImage}
             alt="Profile Image"
+            width={128}
+            height={128}
             className="w-32 h-32 rounded-full object-cover border-4 border-blue-200 shadow mb-4"
           />
           <h2 className="text-xl font-bold mb-1">

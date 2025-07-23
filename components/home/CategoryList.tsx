@@ -10,8 +10,6 @@ const CategoryList = ({
   search?: string;
   category?: string;
 }) => {
-  const searchTerm = search ? `&search=${search}` : "";
-
   return (
     <div className="flex items-center justify-center mt-4">
       <div className="flex items-center border rounded-md p-2 gap-2">
