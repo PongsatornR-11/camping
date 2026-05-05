@@ -8,30 +8,26 @@ const TextAreaInput = ({
   defaultValue,
   placeholder,
   className,
-  row,
+  rows = 4,
 }: {
   name: string;
   labelText?: string;
   defaultValue?: string;
   placeholder?: string;
   className?: string;
-  row?: number
+  rows?: number;
 }) => {
   return (
     <div>
-      <Label 
-        htmlFor={name} 
-        className={`${className} capitalize`}
-      >
+      <Label htmlFor={name} className={`${className} capitalize`}>
         {labelText || name}
       </Label>
-
-      <Textarea 
+      <Textarea
         id={name}
         name={name}
         defaultValue={defaultValue}
-        placeholder={placeholder} 
-        rows={row}
+        placeholder={placeholder}
+        rows={rows}
         required
       />
     </div>

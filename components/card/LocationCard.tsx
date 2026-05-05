@@ -1,15 +1,13 @@
 import React from "react";
 import Image from "next/image";
 import { locationCardProps } from "@/utils/types";
-import LocationRating from "./LocationRating";
 import FavoriteToggleButton from "./FavoriteToggleButton";
 import Link from "next/link";
 
 const LocationCard = ({ location }: { location: locationCardProps }) => {
-  const { name, image, description, price, id, province } =
-    location;
+  const { name, image, description, price, id, province } = location;
   return (
-    <article className="group relative p-2 rounded-sm hover:scale-105 transition-transform duration-600 shadow-sm">
+    <article className="group relative p-2 rounded-sm hover:scale-105 transition-transform duration-500 shadow-sm">
       <Link href={`/location/${id}`}>
         <div className="relative h-[300px] rounded-md">
           <Image
@@ -21,14 +19,11 @@ const LocationCard = ({ location }: { location: locationCardProps }) => {
           />
         </div>
         <div className="flex items-center justify-between mt-1">
-          <h3 className="text-sm font-semibold ">{name.substring(0, 40)}</h3>
-          <p>
-            <LocationRating />
-          </p>
+          <h3 className="text-sm font-semibold">{name.length > 40 ? `${name.substring(0, 40)}...` : name}</h3>
         </div>
 
         <p className="text-sm mt-1 text-muted-foreground">
-          {description.substring(0, 45)} ...
+          {description.length > 45 ? `${description.substring(0, 45)}...` : description}
         </p>
         <div className="mt-1 flex items-center justify-between font-semibold text-sm">
           <span>{price} THB</span>

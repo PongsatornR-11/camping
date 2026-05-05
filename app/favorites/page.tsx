@@ -1,4 +1,3 @@
-import React from "react";
 import { fetchFavoriteByUser } from "@/actions/action";
 import LocationList from "@/components/home/LocationList";
 import Hero from "@/components/hero/Hero";
@@ -11,9 +10,9 @@ const FavoritesPage = async () => {
     <div>
       {favorites.length === 0 ? (
         <EmptyList
-          heading="You don't have favorite Location.."
-          message="Please add some location to your favorite first"
-          btnText="Go to Home page"
+          heading="No favorites yet"
+          message="Add some locations to your favorites to see them here."
+          btnText="Browse locations"
         />
       ) : (
         <div>

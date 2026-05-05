@@ -9,35 +9,34 @@ import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import { prisma } from "@/utils/db";
 import { redirect } from "next/navigation";
 import { uploadImage } from "@/utils/supabase";
-
-//for testing
-import { locations } from "@/utils/forTest";
 import { revalidatePath } from "next/cache";
+
+type ActionState = {
+  message: string;
+  redirect?: string;
+};
 
 const getUserClerk = async () => {
   const user = await currentUser();
   if (!user) {
-    throw new Error("Please login to create a profile");
+    throw new Error("Please login to continue");
   }
-  // if user doesn't have profile redirect to profile/create
   if (!user.privateMetadata.haveProfile) redirect("/profile/create");
   return user;
 };
 
-const processError = (error: unknown): { message: string } => {
+const processError = (error: unknown): ActionState => {
   return {
     message:
-      error instanceof Error ? error.message : "An Error Occured in server",
+      error instanceof Error ? error.message : "An error occurred on the server",
   };
 };
 
 export const createProfileAction = async (
-  prevState: any,
+  prevState: ActionState,
   formData: FormData
 ) => {
-  // validate the form data
   try {
-    // get the current user
     const user = await currentUser();
     if (!user) throw new Error("Please login!");
     if (user.privateMetadata.haveProfile) {
@@ -46,9 +45,7 @@ export const createProfileAction = async (
 
     const rawData = Object.fromEntries(formData);
     const validatedField = validateWithZod(profileSchema, rawData);
-    console.log("validatedField ", validatedField);
 
-    // insert the data into the database
     await prisma.profile.create({
       data: {
         clerkId: user.id,
@@ -58,7 +55,6 @@ export const createProfileAction = async (
       },
     });
 
-    // update metadata in clerk
     const client = await clerkClient();
     await client.users.updateUserMetadata(user.id, {
       privateMetadata: {
@@ -66,21 +62,19 @@ export const createProfileAction = async (
       },
     });
 
-    // return the response
     return {
-      message: "Create Profile Success!",
+      message: "Profile created successfully!",
       redirect: "/",
     };
   } catch (error) {
     return processError(error);
   }
-  // redirect("/");
 };
 
 export const createCampAction = async (
-  prevState: any,
+  prevState: ActionState,
   formData: FormData
-): Promise<{ message: string; redirect?: string }> => {
+): Promise<ActionState> => {
   try {
     // gather datas
     const user = await getUserClerk();
@@ -227,10 +221,7 @@ export const fetchFavoriteByUser = async () => {
 export const fetchLocationDetailById = async ({ id }: { id: string }) => {
   return await prisma.landmark.findUnique({
     where: {
-      id: id,
-    },
-    include: {
-      profile: true,
+      id,
     },
   });
 };

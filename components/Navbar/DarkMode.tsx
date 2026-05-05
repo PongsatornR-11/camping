@@ -13,34 +13,25 @@ export function DarkMode() {
     setMounted(true);
   }, []);
 
-  const isDarkMode = theme === "dark";
-
-  const toggleTheme = () => {
-    if (theme === "dark") {
-      setTheme("light");
-    } else {
-      setTheme("dark");
-    }
-  };
-
-  // if it not mounted return null
   if (!mounted) {
-    return null;
+    return (
+      <div className="flex items-center space-x-2 px-2 h-6" aria-hidden="true">
+        <div className="w-4 h-4" />
+        <Switch aria-label="Toggle dark mode" />
+      </div>
+    );
   }
+
+  const isDarkMode = theme === "dark";
 
   return (
     <div className="flex items-center space-x-2 px-2">
-      {/* Icons */}
-      {theme === "dark" ? (
-        <Moon />
-      ) : (
-        <Sun />
-      )}
-      {/* Toggle Switch */}
+      {theme === "dark" ? <Moon /> : <Sun />}
       <Switch
         id="dark-mode-toggle"
+        aria-label="Toggle dark mode"
         checked={isDarkMode}
-        onCheckedChange={toggleTheme}
+        onCheckedChange={() => setTheme(isDarkMode ? "light" : "dark")}
       />
     </div>
   );

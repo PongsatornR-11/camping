@@ -4,19 +4,19 @@ import Search from "./Search";
 import { DarkMode } from "./DarkMode";
 import DropdownListMenu from "./DropdownListMenu";
 import GithubLink from "./GithubLink";
+import { Suspense } from "react";
+
 const Navbar = () => {
   return (
-    <nav>
-      <div className="container flex justify-between py-4  flex-col sm:flex-row sm:items-center gap-2">
+    <nav aria-label="Main navigation">
+      <div className="container flex justify-between py-4 flex-col sm:flex-row sm:items-center gap-2">
         <div className="flex items-center space-x-2">
-          {/* logo */}
           <Logo />
-          {/* github link */}
           <GithubLink />
         </div>
-        {/* search */}
-        <Search />
-        {/* Dark mode & profile */}
+        <Suspense>
+          <Search />
+        </Suspense>
         <div className="flex space-x-2">
           <DarkMode />
           <DropdownListMenu />

@@ -1,10 +1,11 @@
 import LoadingLocationCard from "@/components/card/LoadingLocationCard";
 import LocationContainer from "@/components/home/LocationContainer";
 import { Suspense } from "react";
-const page = async ({
+
+const HomePage = async ({
   searchParams,
 }: {
-  searchParams: { search?: string; category?: string };
+  searchParams: Promise<{ search?: string; category?: string }>;
 }) => {
   const { search, category } = await searchParams;
   return (
@@ -16,4 +17,4 @@ const page = async ({
   );
 };
 
-export default page;
+export default HomePage;

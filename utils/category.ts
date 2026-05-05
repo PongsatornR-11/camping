@@ -6,48 +6,22 @@ import {
   Utensils,
   Hotel,
   Bed,
-  Church,
   TreePalm,
 } from "lucide-react";
 import React from "react";
 
-type categories = {
+type Category = {
   label: string;
-  icon: React.ComponentType;
+  icon: React.ComponentType<{ className?: string }>;
 };
 
-export const categories: categories[] = [
-  {
-    label: "camping",
-    icon: Tent,
-  },
-  {
-    label: "House",
-    icon: House,
-  },
-  {
-    label: "hotel",
-    icon: Hotel,
-  },
-  {
-    label: "Hostel",
-    icon: Bed,
-  },
-  {
-    label: "moutain",
-    icon: Mountain,
-  },
-  {
-    label: "Store",
-    icon: Store,
-  },
-  
-  {
-    label: "Beach",
-    icon: TreePalm,
-  },
-  {
-    label: "Restaurant",
-    icon: Utensils,
-  },
+export const categories: Category[] = [
+  { label: "Camping", icon: Tent },
+  { label: "House", icon: House },
+  { label: "Hotel", icon: Hotel },
+  { label: "Hostel", icon: Bed },
+  { label: "Mountain", icon: Mountain },
+  { label: "Store", icon: Store },
+  { label: "Beach", icon: TreePalm },
+  { label: "Restaurant", icon: Utensils },
 ];

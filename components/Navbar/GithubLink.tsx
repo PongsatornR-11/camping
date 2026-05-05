@@ -5,8 +5,13 @@ import Link from "next/link";
 
 const GithubLink = () => {
   return (
-    <Button size={"sm"} variant={'ghost'} asChild>
-      <Link href="https://github.com/PongsatornR-11" target="_blank">
+    <Button size="sm" variant="ghost" asChild>
+      <Link
+        href="https://github.com/PongsatornR-11"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub profile"
+      >
         <Github />
       </Link>
     </Button>

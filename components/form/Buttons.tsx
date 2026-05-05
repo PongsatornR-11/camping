@@ -12,9 +12,7 @@ type SubmitButtonProps = {
   text?: string;
 };
 
-export const SubmitButton = (props: SubmitButtonProps) => {
-  const { className, size, text } = props;
-  // console.log(props);
+export const SubmitButton = ({ className, size, text }: SubmitButtonProps) => {
   const { pending } = useFormStatus();
   return (
     <Button
@@ -29,7 +27,7 @@ export const SubmitButton = (props: SubmitButtonProps) => {
           <span>Please wait...</span>
         </>
       ) : (
-        <p>{text}</p>
+        text
       )}
     </Button>
   );
@@ -38,8 +36,8 @@ export const SubmitButton = (props: SubmitButtonProps) => {
 export const SignInFavButton = () => {
   return (
     <SignInButton mode="modal">
-      <Button size="icon" variant="outline">
-        <Heart fill="black" />
+      <Button size="icon" variant="outline" aria-label="Sign in to favorite">
+        <Heart className="fill-current" />
       </Button>
     </SignInButton>
   );
@@ -48,25 +46,20 @@ export const SignInFavButton = () => {
 export const FavoriteCardButton = ({ isFavorite }: { isFavorite: boolean }) => {
   const { pending } = useFormStatus();
   return (
-    <Button 
-      disabled={pending} 
-      type="submit" 
-      size='icon' 
-      variant='outline'
+    <Button
+      disabled={pending}
+      type="submit"
+      size="icon"
+      variant="outline"
+      aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
     >
-      {
-      pending ? 
-      (
+      {pending ? (
         <LoaderCircle className="animate-spin" />
-      ) 
-      : isFavorite ? 
-        (
-          <Heart className="fill-black dark:fill-white" />
-        ) 
-      : (
+      ) : isFavorite ? (
+        <Heart className="fill-current" />
+      ) : (
         <Heart />
-      )
-      }
+      )}
     </Button>
   );
 };

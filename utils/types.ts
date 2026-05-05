@@ -1,7 +1,7 @@
-export type actionFunction = (
-  prevState: any,
-  formData: FormData
-) => Promise<{ message: string; status?: string; redirect?: string }>;
+export type ActionState = {
+  message: string;
+  redirect?: string;
+};
 
 export type locationCardProps = {
   id: string;

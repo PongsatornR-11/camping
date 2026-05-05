@@ -1,8 +1,5 @@
 import { fetchLocation, fetchLocationHero } from "@/actions/action";
-
 import LocationList from "./LocationList";
-
-import { locationCardProps } from "@/utils/types";
 import Hero from "../hero/Hero";
 import CategoryList from "./CategoryList";
 import EmptyList from "./EmptyList";
@@ -14,12 +11,10 @@ const LocationContainer = async ({
   search?: string;
   category?: string;
 }) => {
-  const locations: locationCardProps[] = await fetchLocation({
-    search,
-    category,
-  });
-
-  const heroLocations: locationCardProps[] = await fetchLocationHero()
+  const [locations, heroLocations] = await Promise.all([
+    fetchLocation({ search, category }),
+    fetchLocationHero(),
+  ]);
 
   return (
     <div>

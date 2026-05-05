@@ -15,34 +15,34 @@ import "leaflet.gridlayer.googlemutant";
 import { Label } from "../ui/label";
 import CopyLocation from "./CopyLocation";
 
-//load pin icon
-const iconUrl =
-  "https://cdn4.iconfinder.com/data/icons/small-n-flat/24/map-marker-512.png";
+const DEFAULT_ICON_URL = "https://cdn4.iconfinder.com/data/icons/small-n-flat/24/map-marker-512.png";
 const markerIcon = L.icon({
-  iconUrl: iconUrl,
+  iconUrl: DEFAULT_ICON_URL,
   iconSize: [30, 30],
+  iconAnchor: [15, 30],
+  popupAnchor: [0, -30],
 });
 
 type Latlng = [number, number];
-type locationMarkerProps = {
+type LocationMarkerProps = {
   position: Latlng | null;
   setPosition: (position: Latlng) => void;
 };
 
-function LocationMarker({ position, setPosition }: locationMarkerProps) {
-  const map = useMapEvents({
+function LocationMarker({ position, setPosition }: LocationMarkerProps) {
+  useMapEvents({
     click(e) {
       const newLocation: Latlng = [e.latlng.lat, e.latlng.lng];
       setPosition(newLocation);
-      map.flyTo(e.latlng);
+      e.target.flyTo(e.latlng);
     },
   });
 
   return position === null ? null : (
     <Marker position={position} icon={markerIcon}>
       <Popup>
-        {`latitude: ${position[0].toFixed(2)}`} <br />
-        {`longitude: ${position[1].toFixed(2)}`}
+        {`Lat: ${position[0].toFixed(4)}`}<br />
+        {`Lng: ${position[1].toFixed(4)}`}
       </Popup>
     </Marker>
   );
@@ -57,6 +57,7 @@ const MapLandMark = ({
   const [position, setPosition] = useState<Latlng | null>(
     location ? [location.lat, location.lng] : null
   );
+
   return (
     <div className="mt-4">
       <MapContainer
@@ -68,19 +69,21 @@ const MapLandMark = ({
         <LocationMarker position={position} setPosition={setPosition} />
 
         <LayersControl>
-          <LayersControl.BaseLayer name="Google map" checked>
+          <LayersControl.BaseLayer name="Google Maps" checked>
             <TileLayer
+              attribution="&copy; Google Maps"
               url="https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
               subdomains={["mt0", "mt1", "mt2", "mt3"]}
             />
           </LayersControl.BaseLayer>
 
-          <LayersControl.BaseLayer name="Openstreetmap">
+          <LayersControl.BaseLayer name="OpenStreetMap">
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
           </LayersControl.BaseLayer>
+
           <LayersControl.BaseLayer name="Esri WorldImagery">
             <TileLayer
               attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
@@ -90,14 +93,16 @@ const MapLandMark = ({
         </LayersControl>
       </MapContainer>
 
-      <div>
-        <div>
-          <Label className="capitalize">latitude: </Label>
-          <input name="lat" value={position ? position[0].toFixed(3) : ""} readOnly />
-          <Label className="capitalize">longitude: </Label>
-          <input name="lng" value={position ? position[1].toFixed(3) : ""} readOnly />
-        </div>
-        {position && <CopyLocation lat={position[0]} lng={position[1]} />}
+      <div className="flex items-center gap-4 mt-2">
+        <input type="hidden" name="lat" value={position ? position[0] : ""} />
+        <input type="hidden" name="lng" value={position ? position[1] : ""} />
+        {position && (
+          <>
+            <Label>Lat: {position[0].toFixed(4)}</Label>
+            <Label>Lng: {position[1].toFixed(4)}</Label>
+            <CopyLocation lat={position[0]} lng={position[1]} />
+          </>
+        )}
       </div>
     </div>
   );

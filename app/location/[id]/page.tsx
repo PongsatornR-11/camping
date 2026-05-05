@@ -4,14 +4,14 @@ import Breadcrumbs from "@/components/location/Breadcrumbs";
 import Description from "@/components/location/Description";
 import ImageContainer from "@/components/location/ImageContainer";
 import ShareButton from "@/components/location/ShareButton";
-import MapLandMark from "@/components/map/MapLandMark";
+import MapWrapper from "@/components/map/MapWrapper";
 import { redirect } from "next/navigation";
-import React from "react";
 
-const LocationDetail = async ({ params }: { params: { id: string } }) => {
+const LocationDetail = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const location = await fetchLocationDetailById({ id });
   if (!location) redirect("/");
+
   return (
     <section>
       <Breadcrumbs name={location.name} />
@@ -21,16 +21,14 @@ const LocationDetail = async ({ params }: { params: { id: string } }) => {
         </h1>
         <div className="flex items-center gap-x-4">
           <FavoriteToggleButton locationId={location.id} />
-          <ShareButton locationId={location.id} name={location.name}/>
+          <ShareButton locationId={location.id} name={location.name} />
         </div>
       </header>
-      {/* image */}
       <ImageContainer mainImage={location.image} name={location.name} />
-      {/* detail */}
       <section>
         <div>
           <Description description={location.description} />
-          <MapLandMark location={{ lat: location.lat, lng: location.lng }} />
+          <MapWrapper location={{ lat: location.lat, lng: location.lng }} />
         </div>
       </section>
     </section>

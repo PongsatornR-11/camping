@@ -11,15 +11,14 @@ type FormInputProps = {
   placeholder?: string;
 };
 
-const FormInput = (props: FormInputProps) => {
-  // console.log(props);
-  const { name, type, label, placeholder, defaultValue, className } = props;
+const FormInput = ({ name, type, label, placeholder, defaultValue }: FormInputProps) => {
   return (
     <div className="mb-2">
-      <Label htmlFor={name} className={`${className} capitalize`}>
+      <Label htmlFor={name} className="capitalize">
         {label}
       </Label>
       <Input
+        id={name}
         name={name}
         type={type}
         placeholder={placeholder}

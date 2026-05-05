@@ -6,7 +6,7 @@ import { House } from "lucide-react";
 const Logo = () => {
   return (
     <Button size="sm" asChild>
-      <Link href="/" className="text-2xl">
+      <Link href="/" aria-label="Home" className="text-2xl">
         <House />
       </Link>
     </Button>

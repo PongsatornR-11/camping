@@ -30,8 +30,9 @@ const Search = () => {
   return (
     <Input
       type="text"
-      placeholder="Search Locations ..."
+      placeholder="Search locations..."
       className="max-w-xs"
+      aria-label="Search locations"
       onChange={(e) => {
         setSearch(e.target.value);
         handleSearch(e.target.value);
