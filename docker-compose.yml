@@ -1,0 +1,20 @@
+services:
+  camping-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: camping-app
+    restart: unless-stopped
+    ports:
+      - "3002:3002"
+    environment:
+      PORT: 3002
+      NODE_ENV: production
+      DATABASE_URL: "${DATABASE_URL:-postgresql://camping_user:camping_local_2025@192.168.1.109:5433/camping}"
+      DIRECT_URL: "${DIRECT_URL:-postgresql://camping_user:camping_local_2025@192.168.1.109:5433/camping}"
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3002', (r) => process.exit(r.statusCode < 500 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+    mem_limit: 384m
