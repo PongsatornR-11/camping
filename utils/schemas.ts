@@ -14,8 +14,9 @@ export const profileSchema = z.object({
 
 const validateImage = () => {
   const maxSize = 1024 * 1024;
-  return z.instanceof(File).refine(
-    (file) => file.size <= maxSize,
+  const fileSchema = typeof File !== "undefined" ? z.instanceof(File) : z.any();
+  return fileSchema.refine(
+    (file: any) => !file || (file && typeof file.size === "number" && file.size <= maxSize),
     { message: "File size must be less than 1 MB!" }
   );
 };
